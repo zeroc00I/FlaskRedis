@@ -3,14 +3,15 @@
 # pylint: disable=broad-except
 
 from flask import Flask, abort, jsonify, request
-from rq.job import Job
-from rq import Queue
+#from rq.job import Job
+#from rq import Queue
 
 from functions import some_long_function
-from redis_resc import redis_conn, redis_queue
+#from redis_resc import redis_conn, redis_queue
+from RedisQueue import RedisQueue
 
+redisQueue = RedisQueue('test')
 app = Flask(__name__)
-
 
 @app.errorhandler(404)
 def resource_not_found(exception):
@@ -42,7 +43,12 @@ def enqueue():
     if request.method == "POST":
         data = request.json
 
-    job = redis_queue.enqueue(some_long_function, data)
+    job = redis_queue.enqueue(
+        some_long_function,
+        ttl=30,  # This ttl will be used by RQ
+        args=('http://nvie.com',)
+        )
+
     return jsonify({"job_id": job.id})
 
 
@@ -87,6 +93,15 @@ def get_result():
 # Adicionar nova mensagem para lista
 # Status Code esperado: 200 / 404 / 500
 # Retorno: {"message": "Pusheo un mensaje"}
+def queueInsert():
+    try:
+        if request.method == "GET":
+            abort(407, description=exception)
+        if request.method == "POST":
+            messageValue = request.args["message"]
+            redisQueue.put(messageValue)
+    except Exception as exception:
+        abort(407, description=exception)
 
 @app.route("/api/queue/count")
 # Checa quantas mensagens existem pendentes
@@ -100,8 +115,8 @@ def count():
 
 @app.route("/api/queue/allData")
 def getAllData():
-    allDataResults = redis_conn.keys()
-    return jsonify(allDataResults)
+    tamanho_fila = redisQueue.qsize()
+    return f"Tamanho fila: {tamanho_fila}"
 
 if __name__ == "__main__":
     app.run(debug=True)
