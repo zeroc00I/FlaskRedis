@@ -34,15 +34,13 @@ pip3 install redis
 
 ```
 
-## 3 - Popular com novas mensagens [OK]
+## 3 - Consultar as mensagens em fila [Doing]
 
-## 4 - Conseguir consultas as mensagens [OK]
+## 4 - Manipular mensagens existentes (Push, Pop, Count)
 
-## 5 - Manipular mensagens existentes (Push, Pop, Count)
+## 5 - Manipular mensagens existentes através de rotas
 
-## 6 - Manipular mensagens existentes através de rotas
-
-## 7 - Implementar conceito de fila [OK]
+## 6 - Implementar conceito de fila [OK]
 
 curl -X POST http://127.0.0.1:5000/enqueue -d '{"hello":"world"}'
 {
