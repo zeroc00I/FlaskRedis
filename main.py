@@ -18,18 +18,6 @@ def home():
     """Show the app is working."""
     return "APP is currently running!"
 
-@app.route("/check_status")
-def check_status():
-    """Takes a job_id and checks its status in redis queue."""
-    job_id = request.args["job_id"]
-
-    try:
-        job = Job.fetch(job_id, connection=redis_conn)
-    except Exception as exception:
-        abort(404, description=exception)
-
-    return jsonify({"job_id": job.id, "job_status": job.get_status()})
-
 @app.route("/get_result")
 def get_result():
     """Takes a job_id and returns the job's result."""
