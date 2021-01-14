@@ -1,16 +1,24 @@
 # Chall
 
-// Instalar Redis
+## Instalar Redis
+
 // https://dev.to/divshekhar/how-to-use-redis-with-python-1nd6
+
 // https://realpython.com/python-redis/
 
-// Exemplos Flask + Redis
+## Exemplos Flask + Redis
+
 // https://gist.github.com/swdevbali/f4adcacd402216256dd8
+
 // https://realpython.com/flask-by-example-implementing-a-redis-task-queue/
+
 // https://gist.github.com/calderonroberto/f4d8badb94c01e9020db
+
 // https://www.scaleway.com/en/docs/how-to-install-flask-on-your-server/
 
-// Mais completo com conceito de fila
+
+## Base de exemplo de conceitos de fila
+
 // https://towardsdatascience.com/use-redis-queue-for-asynchronous-tasks-in-a-flask-app-d39f2a8c2667
 
 ## 0 - Virtual env python
@@ -41,12 +49,13 @@ pip3 install redis
 ## 5 - Manipular mensagens existentes através de rotas
 
 ## 6 - Implementar conceito de fila [OK]
-
+```
 curl -X POST http://127.0.0.1:5000/enqueue -d '{"hello":"world"}'
 {
   "job_id": "4dfd1d5b-cf3b-4366-83a8-afa4f5de5244"
 }
-
+```
+```
 http://127.0.0.1:5000/get_result?job_id=4dfd1d5b-cf3b-4366-83a8-afa4f5de5244
 
 {
@@ -56,3 +65,4 @@ http://127.0.0.1:5000/get_result?job_id=4dfd1d5b-cf3b-4366-83a8-afa4f5de5244
   "job_started_at": "2021-01-14T00:57:42.565441", 
   "result": null
 }
+```
