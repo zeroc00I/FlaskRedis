@@ -16,24 +16,9 @@ def resource_not_found(exception):
 @app.route("/")
 def home():
     """Show the app is working."""
-    return "APP is currently running!"
-
-@app.route("/get_result")
-def get_result():
-    """Takes a job_id and returns the job's result."""
-    job_id = request.args["job_id"]
-
-    try:
-        job = Job.fetch(job_id, connection=redis_conn)
-    except Exception as exception:
-        abort(404, description=exception)
-
-    if not job.result:
-        abort(
-            404,
-            description=f"No result found for job_id {job.id}. Try checking the job's status.",
+    return jsonify(
+        message='APP is currently running'
         )
-    return jsonify(job.result)
 
 @app.route("/api/queue/pop" , methods=['POST'])
 # Envia requisicao pra fila para
@@ -44,7 +29,9 @@ def queuePop():
     if request.method == "POST":
 
         messageValue = redisQueue.get()
-        return f"{messageValue}"
+        return jsonify(
+        message=f"{messageValue}"
+        )
 
 @app.route("/api/queue/push", methods=['POST'])
 # Envia requisicao pra fila para
@@ -64,22 +51,20 @@ def queueInsert():
                 ),
             )
         redisQueue.put(messageValue)
-        return "adicionado"
+
+        return jsonify(
+        message=f"Pusheo un mesaje"
+        )
 
 @app.route("/api/queue/count", methods=['GET', 'POST'])
-# Checa quantas mensagens existem pendentes
-# para processamento em fila
-# Status Code esperado: 200 / 404
-# Retorno: {"count": 351}
-def count():
-    queue = redis_queue
-    count = len(queue.jobs)
-    return f"Jobs in queue: {count}"
-
-@app.route("/api/queue/allData")
-def getAllData():
+def countQueueSize():
     tamanho_fila = redisQueue.qsize()
-    return f"Tamanho fila: {tamanho_fila}"
+
+    messageValue = f"{tamanho_fila}"
+    
+    return jsonify(
+        message=f"{messageValue}"
+        )
 
 if __name__ == "__main__":
     app.run(debug=True)
