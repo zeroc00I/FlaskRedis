@@ -35,28 +35,38 @@ def get_result():
         )
     return jsonify(job.result)
 
-@app.route("/api/queue/pop")
+@app.route("/api/queue/pop" , methods=['POST'])
 # Envia requisicao pra fila para
 # Obter primeiro elemento da lista e Removê-lo
 # Status Code esperado: 200 / 500
 # Retorno: "message": "body del mensaje"
+def queuePop():
+    if request.method == "POST":
 
-@app.route("/api/queue/push")
+        messageValue = redisQueue.get()
+        return f"{messageValue}"
+
+@app.route("/api/queue/push", methods=['POST'])
 # Envia requisicao pra fila para
 # Adicionar nova mensagem para lista
 # Status Code esperado: 200 / 404 / 500
 # Retorno: {"message": "Pusheo un mensaje"}
 def queueInsert():
-    try:
-        if request.method == "GET":
-            abort(407, description=exception)
-        if request.method == "POST":
-            messageValue = request.args["message"]
-            redisQueue.put(messageValue)
-    except Exception as exception:
-        abort(407, description=exception)
+    if request.method == "POST":
+        messageValue = request.get_json().get('message','')
 
-@app.route("/api/queue/count")
+        if not messageValue:
+            abort(
+                404,
+                description=(
+                    "No query parameter messageValue passed. "
+                    "Send a value to the messageValue query parameter."
+                ),
+            )
+        redisQueue.put(messageValue)
+        return "adicionado"
+
+@app.route("/api/queue/count", methods=['GET', 'POST'])
 # Checa quantas mensagens existem pendentes
 # para processamento em fila
 # Status Code esperado: 200 / 404
