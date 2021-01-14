@@ -13,16 +13,11 @@ app = Flask(__name__)
 def resource_not_found(exception):
     """Returns exceptions as part of a json."""
     return render_template('404.html'), 404
-    return jsonify(
-        error=str(exception)
-        ), 404
 
 @app.route("/")
 def home():
     """Show the app is working."""
-    return jsonify(
-        message='APP is currently running'
-    )
+    return render_template('home.html'), 200
 
 @app.route("/api/queue/pop" , methods=['POST'])
 # Envia requisicao pra fila para
