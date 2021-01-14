@@ -2,24 +2,32 @@
 
 ## Instalar Redis
 
-// https://dev.to/divshekhar/how-to-use-redis-with-python-1nd6
+https://dev.to/divshekhar/how-to-use-redis-with-python-1nd6
 
-// https://realpython.com/python-redis/
+https://realpython.com/python-redis/
 
 ## Exemplos Flask + Redis
 
-// https://gist.github.com/swdevbali/f4adcacd402216256dd8
+https://gist.github.com/swdevbali/f4adcacd402216256dd8
 
-// https://realpython.com/flask-by-example-implementing-a-redis-task-queue/
+https://realpython.com/flask-by-example-implementing-a-redis-task-queue/
 
-// https://gist.github.com/calderonroberto/f4d8badb94c01e9020db
+https://gist.github.com/calderonroberto/f4d8badb94c01e9020db
 
-// https://www.scaleway.com/en/docs/how-to-install-flask-on-your-server/
+https://www.scaleway.com/en/docs/how-to-install-flask-on-your-server/
 
 
 ## Base de exemplo de conceitos de fila
 
-// https://towardsdatascience.com/use-redis-queue-for-asynchronous-tasks-in-a-flask-app-d39f2a8c2667
+https://towardsdatascience.com/use-redis-queue-for-asynchronous-tasks-in-a-flask-app-d39f2a8c2667
+
+https://github.com/bee-queue/bee-queue (Somente adicionar tarefa na fila / Não processar ela automaticamente)
+
+### Bypassing workers
+
+For testing purposes, you can enqueue jobs without delegating the actual execution to a worker (available since version 0.3.1). To do this, pass the is_async=False argument into the Queue constructor:
+
+https://python-rq.org/docs/#bypassing-workers
 
 ## 0 - Virtual env python
 ```
