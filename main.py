@@ -3,7 +3,7 @@
 # pylint: disable=broad-except
 
 import json
-from flask import Flask, abort, jsonify, request
+from flask import Flask, abort, jsonify, request, render_template
 from RedisQueue import RedisQueue
 
 redisQueue = RedisQueue('test')
@@ -12,7 +12,7 @@ app = Flask(__name__)
 @app.errorhandler(404)
 def resource_not_found(exception):
     """Returns exceptions as part of a json."""
-
+    return render_template('404.html'), 404
     return jsonify(
         error=str(exception)
         ), 404
