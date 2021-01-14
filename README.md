@@ -23,6 +23,12 @@ https://towardsdatascience.com/use-redis-queue-for-asynchronous-tasks-in-a-flask
 
 https://github.com/bee-queue/bee-queue (Somente adicionar tarefa na fila / Não processar ela automaticamente)
 
+### Bypassing workers
+
+For testing purposes, you can enqueue jobs without delegating the actual execution to a worker (available since version 0.3.1). To do this, pass the is_async=False argument into the Queue constructor:
+
+https://python-rq.org/docs/#bypassing-workers
+
 ## 0 - Virtual env python
 ```
 virtualenv venv
