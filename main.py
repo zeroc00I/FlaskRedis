@@ -2,6 +2,7 @@
 
 # pylint: disable=broad-except
 
+import json
 from flask import Flask, abort, jsonify, request
 from RedisQueue import RedisQueue
 
@@ -11,14 +12,17 @@ app = Flask(__name__)
 @app.errorhandler(404)
 def resource_not_found(exception):
     """Returns exceptions as part of a json."""
-    return jsonify(error=str(exception)), 404
+
+    return jsonify(
+        error=str(exception)
+        ), 404
 
 @app.route("/")
 def home():
     """Show the app is working."""
     return jsonify(
         message='APP is currently running'
-        )
+    )
 
 @app.route("/api/queue/pop" , methods=['POST'])
 # Envia requisicao pra fila para
@@ -28,10 +32,20 @@ def home():
 def queuePop():
     if request.method == "POST":
 
-        messageValue = redisQueue.get()
-        return jsonify(
-        message=f"{messageValue}"
-        )
+            queueSize = countQueueSize().get_json().get('message')
+            
+            if (int(queueSize) > 0):
+                messageValue = redisQueue.get()
+
+                return jsonify(
+                    message=f"{messageValue}",
+                    success=True
+                )
+            else:
+                return jsonify(
+                    message=f"Nada para expurgar",
+                    success=False
+                )
 
 @app.route("/api/queue/push", methods=['POST'])
 # Envia requisicao pra fila para
@@ -53,18 +67,34 @@ def queueInsert():
         redisQueue.put(messageValue)
 
         return jsonify(
-        message=f"Pusheo un mesaje"
+            message=f"Mensaje inserída en cola",
+            success=True
         )
 
-@app.route("/api/queue/count", methods=['GET', 'POST'])
+@app.route("/api/queue/count", methods=['GET'])
 def countQueueSize():
     tamanho_fila = redisQueue.qsize()
-
     messageValue = f"{tamanho_fila}"
     
-    return jsonify(
-        message=f"{messageValue}"
+    if(int(messageValue) == 0):
+        return jsonify(
+            message=f"{messageValue}",
+            success=False
         )
+
+    else:
+
+        return jsonify(
+            message=f"{messageValue}",
+            success=True
+        )
+
+@app.route("/api/queue/all", methods=['GET'])
+def getAllFromQueue():
+    return jsonify(
+        messages=redisQueue.show_itens(),
+        success=True
+    )
 
 if __name__ == "__main__":
     app.run(debug=True)
