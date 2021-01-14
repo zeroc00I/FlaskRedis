@@ -21,6 +21,8 @@ https://www.scaleway.com/en/docs/how-to-install-flask-on-your-server/
 
 https://towardsdatascience.com/use-redis-queue-for-asynchronous-tasks-in-a-flask-app-d39f2a8c2667
 
+https://github.com/bee-queue/bee-queue (Somente adicionar tarefa na fila / Não processar ela automaticamente)
+
 ## 0 - Virtual env python
 ```
 virtualenv venv
