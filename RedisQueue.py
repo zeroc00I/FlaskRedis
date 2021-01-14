@@ -14,7 +14,10 @@ class RedisQueue(object):
     def empty(self):
         """Return True if the queue is empty, False otherwise."""
         return self.qsize() == 0
-
+    
+    def show_itens(self):
+        return self.__db.lrange(self.key, 0, -1)
+    
     def put(self, item):
         """Put item into the queue."""
         self.__db.rpush(self.key, item)
