@@ -1,5 +1,7 @@
 # Chall
 
+![alt text](https://github.com/bminossi/FlaskRedis/blob/main/fotodepresentacion.png?raw=true)
+
 ## Tasks
 - Consultar as mensagens em fila :heavy_check_mark:
 - Manipular mensagens existentes (Push, Pop, Count) :heavy_check_mark:
