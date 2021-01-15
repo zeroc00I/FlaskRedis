@@ -26,8 +26,22 @@ Passo a Passo
 - Realize o clone do projeto utilizando o git clone
 - Execute docker-compose up -d
 
-## Utilização
+## Como executá-lo
 
+## Melhoras implementadas
+- Acrescida rota que retorna todas mensagens em fila
+  ``` 
+  @app.route("/api/queue/all") 
+  ```
+  - Através dessa rota, é possível que o consumidor da API consiga visualizar todas mensagens que estão aguardando para serem processadas.
+- Acrescido status da operação no callback de todas chamadas de rota (success=True|False)
+  ```
+  return jsonify(
+            message=f"{messageValue}",
+            success=True
+        )
+  ```
+   - Esse atributo facilita o consumo da API para que não seja necessário o consumidor realizar consulta comparando com respostas devolvidas em strings pela API a fim de confirmar se a operação deu certo ou não, envia-se um status em conjunto com o sucesso ou não das operações processadas.
 ## Tasks
 - Consultar as mensagens em fila :heavy_check_mark:
 - Manipular mensagens existentes (Push, Pop, Count) :heavy_check_mark:
