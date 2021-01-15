@@ -18,7 +18,7 @@
 ```
 
 ## Instalação
-### Via Git
+## Via Git
 #### Requerimentos (podem ser instalados via apt)
 - Python3
 - Python3-pip
@@ -36,7 +36,7 @@
 - Execute pip3 install -r requirements.txt
 - Execute python3 app.py
 
-### Via Docker
+## Via Docker
 Passo a Passo
 - Realize o clone do projeto utilizando o git clone
 - Execute docker-compose up -d
