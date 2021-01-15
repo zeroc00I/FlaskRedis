@@ -7,12 +7,20 @@
 ### Via Git
 #### Requerimentos
 - Python3
+- Python3-pip
+
+#### Requerimentos providos pelo requirements.txt
 - Redis
 - Redis-Server
+- Rq
+- Flask
+- Simplejson
 
 Passo a Passo
 - Realize o clone do projeto utilizando o git clone
 - Execute pip3 install -r requirements.txt
+- Execute python3 app.py
+
 ### Via Docker
 Passo a Passo
 - Realize o clone do projeto utilizando o git clone
