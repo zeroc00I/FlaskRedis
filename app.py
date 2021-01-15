@@ -26,22 +26,27 @@ def home():
 # Retorno: "message": "body del mensaje"
 def queuePop():
     if request.method == "POST":
+            try:
+                queueSize = countQueueSize().get_json().get('message')
+                
+                if (int(queueSize) > 0):
 
-            queueSize = countQueueSize().get_json().get('message')
-            
-            if (int(queueSize) > 0):
+                    messageValue = redisQueue.get().decode()
 
-                messageValue = redisQueue.get().decode()
-
+                    return jsonify(
+                        message=f"{messageValue}",
+                        success=True
+                    )
+                else:
+                    return jsonify(
+                        message=f"Nada para expurgar",
+                        success=False
+                    )
+            except Exception as e:
                 return jsonify(
-                    message=f"{messageValue}",
-                    success=True
-                )
-            else:
-                return jsonify(
-                    message=f"Nada para expurgar",
-                    success=False
-                )
+                        message=f"Algo deu errado",
+                        success=False
+                    )
 
 @app.route("/api/queue/push", methods=['POST'])
 # Envia requisicao pra fila para
@@ -50,47 +55,64 @@ def queuePop():
 # Retorno: {"message": "Pusheo un mensaje"}
 def queueInsert():
     if request.method == "POST":
-        messageValue = request.get_json().get('message','')
+        try:
+            messageValue = request.get_json().get('message','')
 
-        if not messageValue:
-            abort(
-                404,
-                description=(
-                    "No query parameter messageValue passed. "
-                    "Send a value to the messageValue query parameter."
-                ),
+            if not messageValue:
+                abort(
+                    404,
+                    description=(
+                        "No query parameter messageValue passed. "
+                        "Send a value to the messageValue query parameter."
+                    ),
+                )
+            redisQueue.put(messageValue)
+
+            return jsonify(
+                message=f"{messageValue}",
+                success=True
             )
-        redisQueue.put(messageValue)
-
-        return jsonify(
-            message=f"{messageValue}",
-            success=True
-        ), 200
-
+        except Exception as e:
+                return jsonify(
+                        message=f"Algo deu errado",
+                        success=False
+                    )
 @app.route("/api/queue/count", methods=['GET'])
 def countQueueSize():
-    tamanho_fila = redisQueue.qsize()
-    messageValue = f"{tamanho_fila}"
-    
-    if(int(messageValue) == 0):
-        return jsonify(
-            message=f"{messageValue}",
-            success=False
-        )
+    try:
+        tamanho_fila = redisQueue.qsize()
+        messageValue = f"{tamanho_fila}"
+        
+        if(int(messageValue) == 0):
+            return jsonify(
+                message=f"{messageValue}",
+                success=False
+            )
 
-    else:
+        else:
 
-        return jsonify(
-            message=f"{messageValue}",
-            success=True
-        )
+            return jsonify(
+                message=f"{messageValue}",
+                success=True
+            )
+    except Exception as e:
+                return jsonify(
+                        message=f"Algo deu errado",
+                        success=False
+                    )
 
 @app.route("/api/queue/all", methods=['GET'])
 def getAllFromQueue():
-    return jsonify(
-        messages=redisQueue.show_itens(),
-        success=True
-    )
+    try:
+        return jsonify(
+            messages=redisQueue.show_itens(),
+            success=True
+        )
+    except Exception as e:
+        return jsonify(
+                        message=f"Algo deu errado",
+                        success=False
+                    )
 
 if __name__ == "__main__":
     app.run(debug=False)
