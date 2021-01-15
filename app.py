@@ -92,5 +92,5 @@ def getAllFromQueue():
     )
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=81, debug=False)
+    app.run(debug=False)
     app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
