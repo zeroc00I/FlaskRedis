@@ -11,7 +11,7 @@ body{
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <center>
 <h1>Abstracción de una cola</h1>
-<button id='show' type="button" class="btn btn-outline-primary">Exibir todas</button>
+<button id='show' type="button" class="btn btn-outline-primary">Exibir todas mensajes</button>
 <button id='count' type="button" class="btn btn-outline-secondary">Obtener Cantidad de Mensajes</button>
 <button id='push' type="button" class="btn btn-outline-success">Push</button>
 <button id='pop' type="button" class="btn btn-outline-danger">Pop</button>
@@ -34,14 +34,19 @@ $(document).ready(function(){
     })
   })
   $("#push").on("click",function(){
-    $.ajax({
-      type: "POST",
-      contentType : 'application/json',
-      url: '/api/queue/push',
-      data: '{"message":1}'
-      }).done(function(e){
-      $("#result").html("Mensaje "+e.message+" inserída en cola");
-    })
+    var message = prompt("Digite sua mensagem");
+    if(message){
+      $.ajax({
+        type: "POST",
+        contentType : 'application/json',
+        url: '/api/queue/push',
+        data: '{"message":"'+message+'"}'
+        }).done(function(e){
+          $("#result").html("Mensaje "+e.message+" inserída en cola");
+      })
+    }else{
+      alert("A mensagem deve ter conteudo");
+    }
   })
   $("#pop").on("click",function(){
     $.post("/api/queue/pop").done(function(e){
