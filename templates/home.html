@@ -24,12 +24,12 @@ body{
 $(document).ready(function(){
   $("#show").on("click",function(){
     $.get("/api/queue/all").done(function(e){
-      $("#result").html(JSON.stringify(e.messages));
+      $("#result").html("Todos elementos: "+JSON.stringify(e.messages));
     })
   })
   $("#count").on("click",function(){
    $.get("/api/queue/count").done(function(e){
-      $("#result").html(e.message);
+      $("#result").html("Quantidade de mensagens"+e.message);
     })
   })
   $("#push").on("click",function(){
@@ -39,7 +39,7 @@ $(document).ready(function(){
       url: '/api/queue/push',
       data: '{"message":1}'
       }).done(function(e){
-      $("#result").html(e.message);
+      $("#result").html("Mensaje "+e.message+" inserída en cola");
     })
   })
   $("#pop").on("click",function(){
