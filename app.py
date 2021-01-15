@@ -33,7 +33,7 @@ def queuePop():
                 messageValue = int(redisQueue.get())
 
                 return jsonify(
-                    message=f"{messageValue}",
+                    message=f"Mensagem '{messageValue}' removida da fila",
                     success=True
                 )
             else:
@@ -62,7 +62,7 @@ def queueInsert():
         redisQueue.put(messageValue)
 
         return jsonify(
-            message=f"Mensaje inserída en cola",
+            message=f"Mensaje {messageValue} inserída en cola",
             success=True
         )
 
@@ -93,3 +93,4 @@ def getAllFromQueue():
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=81, debug=False)
+    app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
