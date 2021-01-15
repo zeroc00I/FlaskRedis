@@ -4,6 +4,7 @@ body{
   margin: 8% !important;
 }
 </style>
+<link rel="shortcut icon" href="https://http2.mlstatic.com/ui/navigation/5.6.1/mercadolibre/favicon.ico">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
 <meta teste charset="utf-8">
@@ -14,7 +15,7 @@ body{
 <button id='count' type="button" class="btn btn-outline-secondary">Obtener Cantidad de Mensajes</button>
 <button id='push' type="button" class="btn btn-outline-success">Push</button>
 <button id='pop' type="button" class="btn btn-outline-danger">Pop</button>
-<div style="width: 50%;border-color: black;border-style: double;height: 50%;margin: 20px;" id='result'></div>
+<div style="width: 50%;font-size: x-large;height: 50%;margin: 20px;font-family: monospace;" id='result'></div>
 </center>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -29,7 +30,7 @@ $(document).ready(function(){
   })
   $("#count").on("click",function(){
    $.get("/api/queue/count").done(function(e){
-      $("#result").html("Quantidade de mensagens"+e.message);
+      $("#result").html("Quantidade de mensagens "+e.message);
     })
   })
   $("#push").on("click",function(){
@@ -44,7 +45,7 @@ $(document).ready(function(){
   })
   $("#pop").on("click",function(){
     $.post("/api/queue/pop").done(function(e){
-      $("#result").html(e.message);
+      $("#result").html("Mensagem "+e.message+" removida da fila");
     })
   })
 })
