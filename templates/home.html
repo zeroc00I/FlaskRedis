@@ -11,7 +11,7 @@ body{
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <center>
 <h1>Abstracción de una cola</h1>
-<button id='show' type="button" class="btn btn-outline-primary">Exibir todas mensajes</button>
+<button id='show' type="button" class="btn btn-outline-primary">Mostrar todos los mensajes</button>
 <button id='count' type="button" class="btn btn-outline-secondary">Obtener Cantidad de Mensajes</button>
 <button id='push' type="button" class="btn btn-outline-success">Push</button>
 <button id='pop' type="button" class="btn btn-outline-danger">Pop</button>
@@ -25,16 +25,16 @@ body{
 $(document).ready(function(){
   $("#show").on("click",function(){
     $.get("/api/queue/all").done(function(e){
-      $("#result").html("Todos elementos: "+JSON.stringify(e.messages));
+      $("#result").html("Todos los mensajes: "+JSON.stringify(e.messages));
     })
   })
   $("#count").on("click",function(){
    $.get("/api/queue/count").done(function(e){
-      $("#result").html("Quantidade de mensagens "+e.message);
+      $("#result").html("Numero de mensajes "+e.message);
     })
   })
   $("#push").on("click",function(){
-    var message = prompt("Digite sua mensagem");
+    var message = prompt("Ingrese el contenido del mensaje");
     if(message){
       $.ajax({
         type: "POST",
@@ -45,12 +45,16 @@ $(document).ready(function(){
           $("#result").html("Mensaje "+e.message+" inserída en cola");
       })
     }else{
-      alert("A mensagem deve ter conteudo");
+      alert("El mensaje debe estar completo");
     }
   })
   $("#pop").on("click",function(){
     $.post("/api/queue/pop").done(function(e){
-      $("#result").html("Mensagem "+e.message+" removida da fila");
+      if(e.success){
+        $("#result").html("Mensaje "+e.message+" eliminado de la cola");
+      }else{
+        $("#result").html("No hay mensajes para eliminar");
+      }
     })
   })
 })
