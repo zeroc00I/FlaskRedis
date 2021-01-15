@@ -58,14 +58,23 @@ http://127.0.0.1:5000/get_result?job_id=4dfd1d5b-cf3b-4366-83a8-afa4f5de5244
 ```
 ### Erros enfrentados e soluções encontradas
 https://stackoverflow.com/questions/55770968/i-am-struggling-to-get-value-by-key-from-the-jsonify-object-in-python-flask
+
 https://redis.io/commands/lrem
+
 https://redis.io/commands/rpoplpush
+
 https://realpython.com/flask-by-example-implementing-a-redis-task-queue/
+
 http://peter-hoffmann.com/2012/python-simple-queue-redis-queue.html
+
 https://python-rq.org/
+
 https://pypi.org/project/redis_queue/
+
 https://www.twilio.com/blog/asynchronous-tasks-in-python-with-redis-queue
+
 https://kb.objectrocket.com/redis/create-a-simple-task-queue-with-flask-and-redis-1467
+
 
 
 
