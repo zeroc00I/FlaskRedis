@@ -2,6 +2,24 @@
 
 ![alt text](https://github.com/bminossi/FlaskRedis/blob/main/fotodepresentacion.png?raw=true)
 
+
+## Instalação
+### Via Git
+#### Requerimentos
+- Python3
+- Redis
+- Redis-Server
+
+Passo a Passo
+- Realize o clone do projeto utilizando o git clone
+- Execute pip3 install -r requirements.txt
+### Via Docker
+Passo a Passo
+- Realize o clone do projeto utilizando o git clone
+- Execute docker-compose up -d
+
+## Utilização
+
 ## Tasks
 - Consultar as mensagens em fila :heavy_check_mark:
 - Manipular mensagens existentes (Push, Pop, Count) :heavy_check_mark:
