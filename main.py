@@ -1,5 +1,5 @@
 """The Flask App."""
-
+# -*- coding: utf-8 -*-
 # pylint: disable=broad-except
 
 import json
@@ -30,7 +30,7 @@ def queuePop():
             queueSize = countQueueSize().get_json().get('message')
             
             if (int(queueSize) > 0):
-                messageValue = redisQueue.get()
+                messageValue = int(redisQueue.get())
 
                 return jsonify(
                     message=f"{messageValue}",
