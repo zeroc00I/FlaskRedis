@@ -6,6 +6,7 @@
 - Manipular mensagens existentes através de rotas :heavy_check_mark:
 - Implementar conceito de fila assíncrona com workers :x:
   - Durante o desenvolvimento do projeto houve uma mudança de estratágia quanto a necessidade do projeto possuir workers / estar preparado para ser consumido por outro sistema; Tendo em vista que o consumer é exclusivamente o visitante da página, que irá manpular a fila de mensagens, não viu-se necessidade de tal infraestrutura. 
+- Desenvolver um client em JS para realizar o consumo da API rest desenvolvida :heavy_check_mark:
 - Adaptar ambiente para Docker :heavy_check_mark:
 
 
