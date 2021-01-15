@@ -2,6 +2,20 @@
 
 ![alt text](https://github.com/bminossi/FlaskRedis/blob/main/fotodepresentacion.png?raw=true)
 
+## Estrutura da aplicação
+```
+
+├── README.md                       # Você está aqui =)
+├── app.py                          # Core da aplicação
+├── fotodepresentacion.png          # Capa do projeto
+├── RedisQueue.py                   # Estabelece conexão com o Redis e funções auxiliares               
+├── docker-compose.yaml             # Gerencia do start dos serviços da aplicação em docker 
+├── Dockerfile                      # Receita e preparação do ambiente para start do flask
+└── templates                       # Templates utilizados para renderização de páginas
+    ├── 404.html                    # Páginas não encontradas verão essa página
+    └── home.html                   # Essa é a página inicial da aplicação o/
+├── requirements.txt                # módulos necessários do  Python para a aplicação funcionar 
+```
 
 ## Instalação
 ### Via Git
