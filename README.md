@@ -30,7 +30,7 @@
 - Flask
 - Simplejson
 
-Passo a Passo
+#### Passo a Passo
 - Realize o clone do projeto utilizando o git clone
 - Execute pip3 install -r requirements.txt
 - Execute python3 app.py
@@ -39,8 +39,6 @@ Passo a Passo
 Passo a Passo
 - Realize o clone do projeto utilizando o git clone
 - Execute docker-compose up -d
-
-## Como executá-lo
 
 ## Melhoras implementadas
 - Acrescida rota que retorna todas mensagens em fila
