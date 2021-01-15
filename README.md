@@ -1,11 +1,66 @@
 # Chall
 
+![alt text](https://github.com/bminossi/FlaskRedis/blob/main/fotodepresentacion.png?raw=true)
+
+## Estrutura da aplicação
+```
+
+├── README.md                       # Você está aqui =)
+├── app.py                          # Core da aplicação
+├── fotodepresentacion.png          # Capa do projeto
+├── RedisQueue.py                   # Estabelece conexão com o Redis e funções auxiliares               
+├── docker-compose.yaml             # Gerencia do start dos serviços da aplicação em docker 
+├── Dockerfile                      # Receita e preparação do ambiente para start do flask
+└── templates                       # Templates utilizados para renderização de páginas
+    ├── 404.html                    # Páginas não encontradas verão essa página
+    └── home.html                   # Essa é a página inicial da aplicação o/
+├── requirements.txt                # módulos necessários do  Python para a aplicação funcionar 
+```
+
+## Instalação
+### Via Git
+#### Requerimentos (podem ser instalados via apt)
+- Python3
+- Python3-pip
+- redis
+
+#### Requerimentos providos pelo requirements.txt
+- Redis
+- Redis-Server
+- Rq
+- Flask
+- Simplejson
+
+#### Passo a Passo
+- Realize o clone do projeto utilizando o git clone
+- Execute pip3 install -r requirements.txt
+- Execute python3 app.py
+
+### Via Docker
+Passo a Passo
+- Realize o clone do projeto utilizando o git clone
+- Execute docker-compose up -d
+
+## Melhoras implementadas
+- Acrescida rota que retorna todas mensagens em fila
+  ``` 
+  @app.route("/api/queue/all") 
+  ```
+  - Através dessa rota, é possível que o consumidor da API consiga visualizar todas mensagens que estão aguardando para serem processadas.
+- Acrescido status da operação no callback de todas chamadas de rota (success=True|False)
+  ```
+  return jsonify(
+            message=f"{messageValue}",
+            success=True
+        )
+  ```
+   - Esse atributo facilita o consumo da API para que não seja necessário o consumidor realizar consulta comparando com respostas devolvidas em strings pela API a fim de confirmar se a operação deu certo ou não, envia-se um status em conjunto com o sucesso ou não das operações processadas.
 ## Tasks
 - Consultar as mensagens em fila :heavy_check_mark:
 - Manipular mensagens existentes (Push, Pop, Count) :heavy_check_mark:
 - Manipular mensagens existentes através de rotas :heavy_check_mark:
 - Implementar conceito de fila assíncrona com workers :x:
-  - Durante o desenvolvimento do projeto houve uma mudança de estratágia quanto a necessidade do projeto possuir workers / estar preparado para ser consumido por outro sistema; Tendo em vista que o consumer é exclusivamente o visitante da página, que irá manpular a fila de mensagens, não viu-se necessidade de tal infraestrutura. 
+  - Durante o desenvolvimento do projeto houve uma mudança de estratágia quanto a necessidade do projeto possuir workers / estar preparado para ser consumido por outro sistema; Tendo em vista que o consumer é exclusivamente o visitante da página, que irá manipular a fila de mensagens, não viu-se necessidade de tal infraestrutura. 
 - Desenvolver um client em JS para realizar o consumo da API rest desenvolvida :heavy_check_mark:
 - Adaptar ambiente para Docker :heavy_check_mark:
 
