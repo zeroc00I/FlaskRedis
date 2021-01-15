@@ -30,10 +30,11 @@ def queuePop():
             queueSize = countQueueSize().get_json().get('message')
             
             if (int(queueSize) > 0):
-                messageValue = int(redisQueue.get())
+
+                messageValue = redisQueue.get().decode()
 
                 return jsonify(
-                    message=f"Mensagem '{messageValue}' removida da fila",
+                    message=f"{messageValue}",
                     success=True
                 )
             else:
@@ -62,9 +63,9 @@ def queueInsert():
         redisQueue.put(messageValue)
 
         return jsonify(
-            message=f"Mensaje {messageValue} inserída en cola",
+            message=f"{messageValue}",
             success=True
-        )
+        ), 200
 
 @app.route("/api/queue/count", methods=['GET'])
 def countQueueSize():
