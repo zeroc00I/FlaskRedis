@@ -19,10 +19,10 @@
 
 ## Instalação
 ## Via Git
-#### Requerimentos (podem ser instalados via apt)
+#### Requerimentos (devem ser instalados via apt)
 - Python3
 - Python3-pip
-- redis
+- Redis
 
 #### Requerimentos providos pelo requirements.txt
 - Redis
